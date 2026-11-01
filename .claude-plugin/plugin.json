@@ -1,0 +1,19 @@
+{
+  "name": "unpaywall",
+  "version": "1.0.0",
+  "description": "Find legal open-access copies of a paper by DOI with the Unpaywall API, and optionally save the PDF. Requires UNPAYWALL_EMAIL.",
+  "author": {
+    "name": "Masashi Misawa"
+  },
+  "homepage": "https://github.com/masa-med-ai/unpaywall-skill",
+  "repository": "https://github.com/masa-med-ai/unpaywall-skill",
+  "license": "MIT",
+  "keywords": [
+    "unpaywall",
+    "open-access",
+    "full-text",
+    "doi",
+    "medical"
+  ],
+  "skills": "./unpaywall"
+}

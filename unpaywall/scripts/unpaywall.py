@@ -13,6 +13,7 @@ API = "https://api.unpaywall.org/v2/"
 UA = "unpaywall-skill/1.0 (python urllib)"
 MAX_PDF_BYTES = 100 * 1024 * 1024
 EXIT_SETUP_NEEDED = 2
+VERSION_RANK = {"publishedVersion": 0, "acceptedVersion": 1, "submittedVersion": 2}
 SETUP_MESSAGE = """SETUP_REQUIRED: UNPAYWALL_EMAIL is not set.
 Unpaywall identifies API users by email address. Set your own address once.
 
@@ -143,17 +144,21 @@ def main():
 
     info = summarize(rec)
     if args.download:
-        pdf_urls = [loc["url_for_pdf"] for loc in info["locations"] if loc["url_for_pdf"]]
+        pdf_versions = {}
+        for loc in sorted(info["locations"], key=lambda loc: VERSION_RANK.get(loc["version"], len(VERSION_RANK))):
+            if loc["url_for_pdf"]:
+                pdf_versions.setdefault(loc["url_for_pdf"], loc["version"])
         attempts = []
-        info["saved_to"] = None
-        if pdf_urls:
+        info["saved_to"] = info["saved_from"] = info["saved_version"] = None
+        if pdf_versions:
             os.makedirs(args.out_dir, exist_ok=True)
             dest = unique_path(os.path.join(args.out_dir, safe_name(info)))
-            for url in dict.fromkeys(pdf_urls):
+            for url, version in pdf_versions.items():
                 error = fetch_pdf(url, dest)
                 if error is None:
                     info["saved_to"] = os.path.abspath(dest)
                     info["saved_from"] = url
+                    info["saved_version"] = version
                     break
                 attempts.append({"url": url, "error": error})
         info["failed_attempts"] = attempts

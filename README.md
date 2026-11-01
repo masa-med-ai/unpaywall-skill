@@ -12,6 +12,17 @@ Unpaywallの公式ツールではありません。ペイウォールやCAPTCHA�
 
 ## インストール
 
+Claude Codeのプラグインとして入れる場合:
+
+```
+/plugin marketplace add masa-med-ai/pubmed-review-tools
+/plugin install unpaywall@pubmed-review-tools
+```
+
+下記の手順で `~/.claude/skills/unpaywall` に入れたコピーがあれば、似たスキルが2つ反応しないように削除してください。
+
+スキルだけをコピーする場合は次のとおりです。
+
 macOS / Linux:
 
 ```bash
@@ -57,9 +68,14 @@ Claudeに次のように頼みます。
 - 「10.1136/bmj.n71 のOA版を探して」
 - 「このDOIのPDFをダウンロードして」
 
+## 外部への送信
+
+DOIと `UNPAYWALL_EMAIL` のメールアドレスがUnpaywallへ送られます。PDFを保存するときは、Unpaywallが返した出版社やリポジトリのサーバーへ直接アクセスします。
+
 ## 制限
 
 - 出版社のボット対策により、OA論文でもPDFを自動保存できないことがあります。その場合は論文ページのリンクから取得してください。
+- 出版社のPDFが取れないと、リポジトリの著者最終稿や査読前原稿を保存することがあります。保存した版は `saved_version` に出力されます。
 - Windowsでの動作は未検証です。
 
 ## ライセンス

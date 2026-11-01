@@ -55,6 +55,7 @@ DOIから合法的なOA版の所在を調べ、依頼があればPDFを保存す
 
 - `is_oa: false` または `found: false`: 無料版は見つからなかった。Unpaywallが見つけられないだけで、無料版が存在しないとは限らない。
 - `version`: `publishedVersion` は出版版、`acceptedVersion` は査読後の著者最終稿、`submittedVersion` は査読前原稿。出版版以外を渡すときは必ず版を伝える。引用や数値の確認には出版版が望ましいため。
+- `saved_version`: 実際に保存したPDFの版。出版版から順に試し、取れなければ別の版を保存するので、`version` ではなくこちらを伝える。保存できなければ `null`。
 - `license`: 再配布や転載の話が出たら確認する。`null` はライセンス不明で、再配布可とは言えない。
 - `oa_status`: `gold`/`hybrid`/`green`/`bronze`。`bronze` は無料で読めても再利用の許諾がない。
 
